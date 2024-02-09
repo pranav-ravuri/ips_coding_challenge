@@ -1,0 +1,11 @@
+{
+    "description": "Example planning task",
+    "cube_width": "0.5",
+    "start_position": [ -0.076138, -3.258682, 0.54373 ],
+    "goal_position": [ 0.123147, 2.635865, 0.321962 ],
+    "cube_positions": [
+        [ 0, 0, 0 ]
+    ],
+    "domain_lower_corner": [ -0.552, -3.929, -0.15 ],
+    "domain_upper_corner": [ 1.448, 3.07, 1.349 ]
+}
