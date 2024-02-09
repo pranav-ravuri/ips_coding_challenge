@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 # Patameters to set
 file_name = 'data/task.json'
-use_obs_cost = False
+use_obs_cost = True
 live_update = True
 
 # Read the JSON file
