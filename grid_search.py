@@ -54,6 +54,7 @@ class Search():
                 if euic_distance(node.pos, self.env.goal_position) <= self.env.step_dist:
                     print("Path Found, in ", 10000000 - max_tries)
                     path_found = True
+                    self.draw_path(node)
                     # to break the loop
                     max_tries = 0
                     break
@@ -69,27 +70,28 @@ class Search():
         for i in range(10):
             hash, node = next(iter(self.node_lookup.items()))
             if not node.is_dead_end:
-                ret_node = node
                 node.set_resellection_cost(node.resellection_cost + 0.1)
-                break
+                if self.live_update:
+                    self.draw_path(node)
+                return node
             print("Complete Dead End")
+
             
+    def draw_path(self, node):
         # draw the path
-        if self.live_update:
-            self.path_reset()
-            while(1):
-                if node == None:
-                    break
-                self.plot_xvals.append(node.pos[0])
-                self.plot_yvals.append(node.pos[1])
-                self.plot_zvals.append(node.pos[2])
-                node = node.parent
-                self.sc._offsets3d = (self.plot_xvals, self.plot_yvals, self.plot_zvals)
-                self.fig.canvas.draw()
-                # to flush the GUI events
-                self.fig.canvas.flush_events()
-        return ret_node
-    
+        self.path_reset()
+        while(1):
+            if node == None:
+                break
+            self.plot_xvals.append(node.pos[0])
+            self.plot_yvals.append(node.pos[1])
+            self.plot_zvals.append(node.pos[2])
+            node = node.parent
+        self.sc._offsets3d = (self.plot_xvals, self.plot_yvals, self.plot_zvals)
+        self.fig.canvas.draw()
+        # to flush the GUI events
+        self.fig.canvas.flush_events()
+
     def find_next_nodes(self, node: Node):
         """
         move in every possible direction and return the new node positions
